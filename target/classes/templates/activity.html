@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de actividades</title>
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css"
+    />
+    <link href="css/commonstyles.css" rel="stylesheet"/>
+    <link href="css/activity.css" rel="stylesheet"/>
+    <script type="text/javascript" th:src="@{/js/activityscript.js}"></script>
+
+    <script th:src="@{https://unpkg.com/sweetalert/dist/sweetalert.min.js}"></script>
+    <script th:src="@{https://kit.fontawesome.com/3831f1629f.js}" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <script th:inline="javascript">
+    </script>
+</head>
+
+<body th:onload="startQuiz([[${questions}]])">
+
+<!-- navegation menu component -->
+<div th:insert="mainpanel :: header">...</div>
+
+<br/>
+
+<!-- questions table -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="card">
+                <div class="card-header">
+                    <span th:text="${type}"/> - Actividad <span th:text="${activityNumber}"/>
+                </div>
+                <div class="card-body">
+                    <div id="board" style="visibility:visible">
+                        <table class="table table-striped" align="center">
+                            <tr id="question_row">
+                                <td class="text-center align-middle" id="set_question"> question</td>
+                                <td class="text-center align-middle" id="equals"> =</td>
+                                <td class="text-center align-middle">
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" id="answer">
+                                        <script>
+                                              document.getElementById('answer').onkeypress = function (e) {
+                                                  if (!e) e = window.event;
+                                                  if (e.keyCode == '13') {
+                                                  nextQuestion();
+                                                  return false;
+                                                  }
+                                                }
+                                        </script>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary btn-lg" type="button"
+                                                    onclick="nextQuestion()">Siguiente
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center align-middle" id="progress_bar" colspan="4"></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="first_case" style="visibility:hidden">
+                        <div class="form-group">
+                            <p id="success_message"></p>
+                            <form th:action="@{/activity(id=${activityId}, type=${type})}" method="post">
+                                <button type="submit" class="btn btn-info btn-lg btn-block">Enviar resultados</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="second_case" style="visibility:hidden">
+                        <a th:href="@{/activitylist(type=${type})}">
+                            <button class="btn btn-info btn-lg btn-block">
+                               Volver
+                            </button>
+                        </a>
+                    </div>
+                    <div id="score_table"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+

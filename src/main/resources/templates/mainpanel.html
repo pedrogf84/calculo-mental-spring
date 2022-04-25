@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de actividades</title>
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css"
+    />
+    <link href="css/commonstyles.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Navigation menu component primary source -->
+
+<div class="menu" th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <img src="images/calculator_sm.png" alt="navigation logo"/>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/mainpanel}">Lista de actividades</a>
+                </li>
+                <!-- //USER ACCOUNT, TO DEVELOPE LATER.
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/user}">Mi cuenta</a>
+                </li>
+                -->
+            </ul>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Cerrar Sesión</button>
+            </form>
+        </div>
+    </nav>
+</div>
+<br/>
+
+<!-- greeting to the user -->
+
+<h1 th:inline="text"></h1>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    ¡Hola [[${#httpServletRequest.remoteUser}]]! Elige que cálculo quieres practicar.
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-center">
+
+                        <div>
+                            <a th:href="@{/activitylist?type=suma}">
+                                <button class="btn btn-info btn-lg">
+                                    <img src="images/add.png" alt="Add Icon" />
+                                </button>
+                            </a>
+                        </div>
+                        <br/>
+                        <div>
+                            <a th:href="@{/activitylist?type=resta}">
+                                <button class="btn btn-info btn-lg">
+                                    <img src="images/substract.png" alt="Substract Icon" />
+                                </button>
+                            </a>
+                        </div>
+                        <br/>
+                        <div>
+                            <a th:href="@{/activitylist?type=multiplicacion}">
+                                <button class="btn btn-info btn-lg">
+                                    <img src="images/multiply.png" alt="Multiply Icon" />
+                                </button>
+                            </a>
+                        </div>
+                        <br/>
+                        <div>
+                            <a th:href="@{/activitylist?type=division}">
+                                <button class="btn btn-info btn-lg">
+                                    <img src="images/divide.png" alt="Divide Icon" />
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</body>
+</html>

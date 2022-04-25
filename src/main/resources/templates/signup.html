@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        xmlns:form="http://www.w3.org/1999/xhtml"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Registro de usuario</title>
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css"
+    />
+
+    <link href="css/commonstyles.css" rel="stylesheet"/>
+    <link href="css/login.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="wrapper">
+    <div id="formContent">
+        <!-- icon -->
+        <div class="fadeIn">
+            <img src="images/calculator.png" id="icon" alt="User Icon"/>
+        </div>
+
+        <!-- errors display -->
+
+        <div th:if="${param.error}">
+            <p class="text-danger"><span th:text="${param.error}"/></p>
+        </div>
+
+        <!-- success creation display -->
+        <div th:if="${param.success}">
+            <p class="text-success">Usuario creado con éxito, puede volver a la página de Login</p>
+            <p>
+                <a th:href="@{/login}">
+                    <button class="btn btn-info btn-lg">Volver a Login</button>
+                </a>
+            </p>
+        </div>
+
+        <!-- Signup Form -->
+        <div th:if="!${param.success}">
+
+            <!-- form title -->
+            <h5>Introduzca sus datos para crear una cuenta</h5>
+
+            <form th:action="@{/signup}" method="post" modelAttribute="userSignUpDto">
+                <input
+                        id="id"
+                        type="text"
+                        placeholder="correo electrónico"
+                        name="id"
+                />
+                <input
+                        id="password"
+                        type="password"
+                        placeholder="contraseña"
+                        name="password"
+                />
+                <input
+                        id="passwordConfirmed"
+                        type="password"
+                        placeholder="repita la contraseña"
+                        name="passwordConfirmed"
+                />
+                <input type="submit" value="Crear Cuenta"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

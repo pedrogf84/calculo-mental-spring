@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+>
+<head>
+    <title>Cálculo Mental - Acceso</title>
+
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css"
+    />
+
+    <link href="css/commonstyles.css" rel="stylesheet" />
+    <link href="css/login.css" rel="stylesheet" />
+</head>
+<body>
+<div class="wrapper">
+    <div id="formContent">
+        <!-- Icon -->
+        <div class="fadeIn">
+            <img src="images/calculator.png" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        <form th:action="@{/login}" method="post">
+            <input
+                    id="login"
+                    type="text"
+                    name="username"
+                    placeholder="correo electrónico"
+            />
+            <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="contraseña"
+            />
+            <input type="submit" value="Acceder" />
+        </form>
+
+        <div th:if="${param.error}">Email o contraseña incorrecta.</div>
+        <div th:if="${param.logout}">
+            Su sesión se ha cerrado correctamente.
+        </div>
+
+        <!-- Footer -->
+        <div id="formFooter">
+            <p>
+                <a th:href="@{/signup}" class="underlineHover">Cree una nueva cuenta</a>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

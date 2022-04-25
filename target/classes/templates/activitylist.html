@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="https://www.thymeleaf.org"
+        xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+        xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de actividades</title>
+    <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css"
+    />
+    <link href="css/commonstyles.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- navegation menu component -->
+<div class="menu" th:insert="mainpanel :: header">...</div>
+
+
+<!-- display of completed activities -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Actividades Disponibles
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div th:each="item:${activities.getAvailableActivities()}">
+                            <a th:href="@{/activity(id=${item.getId()})}">
+                                <button class="btn-primary">Actividad <span
+                                        th:text="${item.getActivityNumber()}"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br/>
+
+<!-- display of non completed activities -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    Actividades Completadas
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        <div th:each="item : ${activities.getCompletedActivities()}">
+                            <a th:href="@{/activity(id=${item.getId()})}">
+                                <button class="btn btn-success">Actividad <span
+                                        th:text="${item.getActivityNumber()}"></span>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
